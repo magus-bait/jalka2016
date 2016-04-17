@@ -1,0 +1,47 @@
+<template name="layout">
+	{{> modals}}
+	<div class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">Seltsi jalkaennustus</a>
+		</div>
+		<div class="navbar-collapse collapse navbar-inverse-collapse">
+			{{> Template.dynamic template=header}}
+			<ul class="nav navbar-nav navbar-right">
+				<li style="color: white; padding-top: 12px; padding-right: 30px;">
+					{{activeUsername}}
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--{{> meteorErrors}}-->
+	<div class="container">
+		<div id="main" class="row">
+			{{> Template.dynamic template=main}}
+		</div>
+	</div>
+</template>
+
+<template name="modals">
+	<div id="predictionDone" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Tubli</h4>
+				</div>
+				<div class="modal-body">
+					<p>Ennustatud!</p>
+					<p>Ennustust saad muuta kuni esimese mängu alguseni</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>

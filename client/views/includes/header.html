@@ -1,0 +1,11 @@
+<template name="header">
+	<ul class="nav navbar-nav">
+		{{#each competitions}}
+		{{> competitionTitle}}
+		{{/each}}
+	</ul>
+</template>
+
+<template name="competitionTitle">
+	<li class="{{isActive name}}"><a href="/comp/{{url}}">{{name}}</a></li>
+</template>

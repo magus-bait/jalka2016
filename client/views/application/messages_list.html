@@ -1,0 +1,30 @@
+<template name="messagesList">
+	<div>
+		<form class="messageForm">
+			<div>
+				<textarea class="form-control" rows="3" name="message"></textarea>
+			</div>
+			<div class="buttonContainer">
+				<button id="submitMessage" type="button" class="btn btn-primary">
+					<i class="fa fa-envelope"></i>
+					Pane tuvi teele
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="messages">
+		{{#each sortMessages messages}}
+			{{> messageItem}}
+		{{/each}}
+	</div>
+</template>
+
+<template name="messageItem">
+	<div class="message well">
+		<div class="message-content">
+			<span>{{dateFormat timestamp format="YYYY-MM-DD HH:mm:ss"}}</span>
+			<h4>{{author}}: </h4>
+			<span>{{message}}</span>
+		</div>
+	</div>
+</template>

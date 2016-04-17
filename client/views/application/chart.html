@@ -1,0 +1,143 @@
+<template name="chart">
+	<div>
+		<div class="col-md-3">
+			<h4>
+				<div class="btn-group-vertical results" data-toggle="buttons">
+					{{#each competition.chart.latest}}
+						{{> user}}
+					{{/each}}
+				</div>
+			</h4>
+		</div>
+	</div>
+		<div class="col-md-9" style="{{#if chartLoading}}opacity: 0.5;{{/if}}">
+			{{#if resultsAdded}}
+				<div class="clearfix" style="padding-bottom: 20px;">
+					<div class="vertical-text chartYLabel clearfix">Koht</div>
+					<div class="canvas">
+						<canvas height=300 width=540 id="userChart"></canvas>
+					</div>
+					<div style="position:relative; float:left; left: 230px;">Mäng/playoffi faas</div>
+				</div>
+			{{/if}}
+			{{#if predictionsAdded}}
+				{{> chartPredictions}}
+			{{/if}}
+		</div>
+</template>
+
+<template name="user">
+	{{#if currentUser}}
+		<label class="{{isUserSelected}} btn btn-warning">
+			{{>chartRow}}
+		</label>
+	{{else}}
+		{{#if onlineUser}}
+			<label class="{{isUserSelected}} btn btn-success">
+				{{>chartRow}}
+			</label>
+		{{else}}
+			<label class="{{isUserSelected}} btn btn-default">
+				{{>chartRow}}
+			</label>
+		{{/if}}
+	{{/if}}
+</template>
+
+<template name="chartRow">
+	<input type="radio" name="chart" userId="{{userId}}" username="{{username}}">
+	<div class="clearfix">
+		<span style="float:left; font-size: 12px;">{{place}}. {{username}}: {{score}}</span>
+	</div>
+</template>
+
+<template name="chartPredictions">
+	<div class="panel panel-default">
+		<div class="panel-heading">Alagrupimängude ennustus ({{selectedUsername}})</div>
+		<table class="table table-condensed table-bordered">
+			{{#each competition.fixtures}}
+				<tr>
+					{{> chartPredictionRow}}
+				</tr>
+			{{/each}}
+		</table>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">Playoffide ennustus ({{selectedUsername}})</div>
+		<div class="panel-body">
+			<span class="label label-primary">Kaheksandikfinaalid</span>
+			<div class="clearfix" style="margin-top:15px;">
+				{{#each currentPlayoffPredictions 5}}
+					{{> chartPredictionPORow}}
+				{{/each}}
+			</div>
+			<span class="label label-primary">Veerandfinaalid</span>
+			<div class="clearfix" style="margin-top:15px;">
+				{{#each currentPlayoffPredictions 4}}
+					{{> chartPredictionPORow}}
+				{{/each}}
+			</div>
+			<span class="label label-primary">Poolfinaalid</span>
+			<div class="clearfix" style="margin-top:15px;">
+				{{#each currentPlayoffPredictions 3}}
+					{{> chartPredictionPORow}}
+				{{/each}}
+			</div>
+			<span class="label label-primary">Finaal</span>
+			<div class="clearfix" style="margin-top:15px;">
+				{{#each currentPlayoffPredictions 2}}
+					{{> chartPredictionPORow}}
+				{{/each}}
+			</div>
+			<span class="label label-primary">Võitja</span>
+			<div class="clearfix" style="margin-top:15px;">
+				{{#each currentPlayoffPredictions 1}}
+					{{> chartPredictionPORow}}
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="chartPredictionPORow">
+	<div class="chartPredictionPOSection">
+		<img class="chartPredictionPORow {{#if success}}lightGreen {{else}} {{#if predicted}}lightGray{{/if}}{{/if}}" src="/img/flags/{{key}}.png" />
+		<button stage="{{stage}}" key="{{key}}" style="margin-top:5px;" type="button" class="predictionButton btn btn-xs btn-default"><i class="fa fa-list-ul"></i> {{count}}</button>
+	</div>
+</template>
+
+<template name="chartPredictionRow">
+	<td class="third {{chartPredictionColor team1_key}}">
+		<button fixture="{{id}}" key="{{team1_key}}" style="margin-top:8px; float:left;" type="button" class="predictionButton btn btn-xs btn-default"><i class="fa fa-list-ul"></i> {{team1_count}}</button>
+		<span class="withFlag">
+			<img src="/img/flags/{{team1_key}}.png" />{{team1_title}}
+		</span>
+	</td>
+	<td class="third center {{chartPredictionColor 'draw'}}">
+		<span>
+			Viik
+		</span>
+		<button fixture="{{id}}" key="draw" style="margin-left: 5px;" type="button" class="predictionButton btn btn-xs btn-default"><i class="fa fa-list-ul"></i> {{draw_count}}</button>
+	</td>
+	<td class="third {{chartPredictionColor team2_key}}">
+		<button fixture="{{id}}" key="{{team2_key}}" style="margin-top:8px;" type="button" class="predictionButton goRight btn btn-xs btn-default"><i class="fa fa-list-ul"></i> {{team2_count}}</button>
+		<span class="withFlag goRight">
+			{{team2_title}} <img src="/img/flags/{{team2_key}}.png" />
+		</span>
+	</td>
+
+</template>
+
+<template name="loading2">
+	<!-- Loading animation container -->
+	<div class="loading2">
+		<!-- We make this div spin -->
+		<div class="spinner">
+			<!-- Mask of the quarter of circle -->
+			<div class="mask">
+				<!-- Inner masked circle -->
+				<div class="maskedCircle"></div>
+			</div>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,46 @@
+<template name="home">
+	<div class="bs-example">
+		<div class="col-md-12">
+			<div class="col-md-3">
+				<ul class="nav nav-pills nav-stacked" data-toggle="pill">
+					<li class="{{activeTab 'predict'}}"><a id="predictLink" href="#predict" data-toggle="{{disableTab 'predict'}}"><i class="fa fa-bullseye"></i> Ennusta</a></li>
+					<li class="{{activeTab 'watch'}}"><a id="watchLink" data-toggle="{{disableTab 'watch'}}" href="#watch"><i class="fa fa-beer"></i> Jälgi</a></li>
+				</ul>
+				<div class="jumbotron">
+					{{{intro}}}
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Teated</h3>
+					</div>
+					<div class="panel-body">
+						{{> messagesList }}
+					</div>
+				</div>
+			</div>
+			<div class="tab-content col-md-9">
+				<div class="tab-pane fade in {{activeTabStyle 'predict'}}" id="predict">
+					<div >
+						{{>prediction}}
+					</div>
+					<div>
+						{{>predictionPlayoffs}}
+					</div>
+				</div>
+				<div class="tab-pane fade {{activeTabStyle 'watch'}}" id="watch">
+					<div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Edetabel</h3>
+							</div>
+							<div class="panel-body">
+								{{> chart}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</template>

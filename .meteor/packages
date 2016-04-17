@@ -21,3 +21,10 @@ insecure                # Allow all DB writes from clients (for prototyping)
 aldeed:simple-schema
 aldeed:collection2
 dburles:collection-helpers
+kadira:blaze-layout
+kadira:flow-router
+accounts-base
+accounts-password
+ian:accounts-ui-bootstrap-3
+twbs:bootstrap
+http
